@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+    href="https://cdn.jsdelivr.net/npm/remixicon@4.2.0/fonts/remixicon.css"
+    rel="stylesheet"
+/>
+</head>
+<body class="dark:bg-gray-900">
+
+    <div class="container dark:bg-gray-900 w-full h-screen">
+        <form action="/fileupload" method="post" enctype="multipart/form-data" id="upload-form">
+                <a href="/logout" class="bg-white text-black font-semibold text-xl rounded-sm fixed right-10 top-5 px-4 py-1">Log out</a>
+                <a href="/feed" class="bg-white text-black font-semibold text-xl rounded-sm fixed right-40 top-5 px-4 py-1">Feed</a>
+                <div class="">
+                    <input type="file" id="file-input" hidden name="image">
+                    <div class="flex justify-center items-center">
+                        <i class="ri-pencil-fill bg-white rounded-full relative left-[110px] top-[70px] text-3xl" id="profile-img"></i>
+                        <img src="/images/uploads/<%= user.profileImage %>" class="object-cover rounded-full mt-12 bg-white w-[120px] h-[120px]" id="profile-img">
+                    </div>
+                </div>
+        </form>
+        <h1 class="text-white text-2xl text-center mt-5 ms-9 hover:underline italic">@ <%= user.username %></h1>
+
+        <div class="bg-white w-fit h-[20%] flex justify-center items-center relative left-10 top-[10%] p-5 gap-4 rounded-lg shadow-inner overflow-hidden mb-40">
+            <form action="/upload"  method="post" enctype="multipart/form-data">
+                
+                <input type="text" class="border-solid border-2 border-black hover:border-blue-900 w-[45%] h-[2rem] rounded-lg" name="filecaption" placeholder="Some Caption ">
+
+                <input type="file" name="file" class="relative left-24 bg-white cursor-pointer">
+
+                <input type="submit" class=" text-white bg-blue-600 hover:bg-blue-700 font-semobold focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800 mt-8 cursor-pointer" value="Post">
+
+            </form>
+        </div>
+
+        <hr class="mb-10 opacity-100 bg-zinc-600">  
+        
+        <div class="posts w-full flex gap-10 py-2 mt-5 flex-wrap">
+        <% user.posts.forEach(function(post){ %>
+          <div class="post w-[10%] h-full overflow-hidden rounded-lg">
+            <img class="w-full h-full object-cover" src="/images/uploads/<%= post.image %>" alt="">
+            <h4 class="text-center text-white font-medium mt-1 opacity-60"><%= post.postText  %>
+          </div>
+        <% }) %>
+        </div>
+
+    </div>
+
+</body>
+<script>
+
+    const profileImg = document.querySelector("#profile-img");
+    const fileInput = document.querySelector("#file-input");
+
+    profileImg.addEventListener("click", function(){
+        fileInput.click();
+    });
+
+    document.querySelector("#upload-form input").addEventListener("change", function(){
+        document.querySelector("#upload-form").submit();
+    })
+
+</script>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feed</title>  
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+    <div class="container dark:bg-gray-900 min-h-screen px-10 py-8 text-white">
+        <h1 class="font-semibold text-4xl italic">SB .NET</h1>
+        <a href="/logout" class="bg-white text-black font-semibold text-xl rounded-sm fixed right-10 top-5 px-4 py-1">Log out</a>
+        <a href="/profile" class="bg-white text-black font-semibold text-xl rounded-sm fixed right-40 top-5 px-4 py-1">Profile</a>
+                
+        <div class="posts flex flex-wrap gap-10 mt-10">
+                <% posts.reverse().forEach(function(elem){ %>
+                <div class="post w-36">
+                    <div class="w-full h-40 bg-sky-200 rounded-lg overflow-hidden">
+                        <img src="/images/uploads/<%= elem.image %>" alt="" class="w-full h-full  object-cover">
+                    </div>
+                    <h4 class="text-sm mt-2"><%= elem.postText %></h4>
+                    <img src="/images/uploads/<%= elem.user.profileImage %>" alt="" class="w-6 h-6 rounded-full object-cover mt-3">
+                    <h4 class="relative left-10 bottom-7 opacity-60"><%= elem.user.username %></h4>
+                </div>
+            <% }) %>
+        </div>
+    </div>
+
+</body>
+</html>
